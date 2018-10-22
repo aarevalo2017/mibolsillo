@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">MiBolsillo</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="iniciar_sesion">Inicar Sesión</string>
+    <string name="nombre">Nombre</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="pass_confirm">Repita Password</string>
+    <string name="masculino">Masculino</string>
+    <string name="femenino">Femenino</string>
+    <string name="genero">Género</string>
+    <string name="registro">Registro</string>
+    <string name="registrarme">Registrarme</string>
+    <string name="telefono">Telefono</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
