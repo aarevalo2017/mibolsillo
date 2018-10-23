@@ -7,27 +7,42 @@
     tools:context=".LoginActivity"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_marginVertical="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inicio de sesión"
+        android:textSize="30dp"
+        android:layout_gravity="center_horizontal"/>
+
     <EditText
+        android:layout_marginVertical="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtMail"
+        android:layout_marginHorizontal="20dp"
         android:hint="Email"/>
     <EditText
+        android:layout_marginVertical="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtPass"
         android:inputType="textPassword"
+        android:layout_marginHorizontal="20dp"
         android:hint="Password"/>
     <Button
+        android:layout_marginVertical="10dp"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/iniciar_sesion"
         android:onClick="login"/>
-    <Button
-        android:layout_gravity="center_horizontal"
+    <TextView
+        android:layout_marginVertical="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/registro"
-        android:onClick="registroUsuario"/>
+        android:onClick="registroUsuario"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@android:color/holo_blue_dark"/>
 </LinearLayout>

@@ -1,5 +1,6 @@
 package duoc.cl.mibolsillo;
 
+import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity
       public void onClick(View view) {
         SharedPreferences prefs = getSharedPreferences("datos", MODE_PRIVATE);
         int idUsuario = prefs.getInt("idUsuario", 0); //0 is the default value.
-        Toast.makeText(MainActivity.this, ""+idUsuario, Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, "" + idUsuario, Toast.LENGTH_SHORT).show();
 //        Snackbar.make(view, idUsuario, Snackbar.LENGTH_LONG)
 //                .setAction("Action", null).show();
       }
@@ -61,8 +62,18 @@ public class MainActivity extends AppCompatActivity
     if (drawer.isDrawerOpen(GravityCompat.START)) {
       drawer.closeDrawer(GravityCompat.START);
     } else {
-      super.onBackPressed();
+      logout();
+//      super.onBackPressed();
     }
+  }
+
+  private void logout() {
+    AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+    alertDialog.setTitle("Atención");
+    alertDialog.setMessage("Desea salir ?");
+    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Si", (dialog, which) -> finish());
+    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No", (dialog, which) -> dialog.dismiss());
+    alertDialog.show();
   }
 
   @Override
@@ -80,7 +91,7 @@ public class MainActivity extends AppCompatActivity
     int id = item.getItemId();
 
     //noinspection SimplifiableIfStatement
-    if (id == R.id.action_settings) {
+    if (id == R.id.action_cerrar_sesion) {
       return true;
     }
 
@@ -94,9 +105,8 @@ public class MainActivity extends AppCompatActivity
     Fragment fragment = null;
     int id = item.getItemId();
 
-    if (id == R.id.nav_camera) {
+    if (id == R.id.nav_categoria) {
       fragment = new CategoriaFragment();
-      // Handle the camera action
     } else if (id == R.id.nav_gallery) {
 
     } else if (id == R.id.nav_slideshow) {
@@ -117,5 +127,9 @@ public class MainActivity extends AppCompatActivity
   @Override
   public void onFragmentInteraction(Uri uri) {
 
+  }
+
+  public void cerrarSesión(MenuItem item) {
+    logout();
   }
 }

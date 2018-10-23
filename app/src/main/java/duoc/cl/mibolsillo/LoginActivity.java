@@ -78,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.putInt("idUsuario", usuario.getId());
         editor.commit();
         startActivity(intent);
+        finish();
       } else {
         Toast.makeText(LoginActivity.this, "Credenciales incorrectas.", Toast.LENGTH_SHORT).show();
       }

@@ -148,6 +148,10 @@ public class CategoriaFragment extends Fragment {
       if (response.isSuccessful()) {
         List<Categoria> categorias = response.body();
         listaInfo.clear();
+        if (categorias.isEmpty()) {
+          Toast.makeText(view.getContext(), "Sin datos", Toast.LENGTH_LONG).show();
+          return;
+        }
         for (Categoria c : categorias) {
           listaInfo.add(c.getNombre());
         }
