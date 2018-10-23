@@ -1,13 +1,15 @@
 package duoc.cl.mibolsillo;
 
 import android.app.AlertDialog;
+
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,13 +19,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.widget.Button;
 
 import duoc.cl.mibolsillo.fragmentos.CategoriaFragment;
+import duoc.cl.mibolsillo.fragmentos.GastoFragment;
+import duoc.cl.mibolsillo.CategoriaActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        CategoriaFragment.OnFragmentInteractionListener {
+        CategoriaFragment.OnFragmentInteractionListener,GastoFragment.OnFragmentInteractionListener {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +42,12 @@ public class MainActivity extends AppCompatActivity
       public void onClick(View view) {
         SharedPreferences prefs = getSharedPreferences("datos", MODE_PRIVATE);
         int idUsuario = prefs.getInt("idUsuario", 0); //0 is the default value.
-        Toast.makeText(MainActivity.this, "" + idUsuario, Toast.LENGTH_SHORT).show();
-//        Snackbar.make(view, idUsuario, Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show();
+
+
+              Intent intent = new Intent(getApplicationContext(), CategoriaActivity.class);
+              startActivity(intent);
+
+
       }
     });
 
@@ -89,7 +96,6 @@ public class MainActivity extends AppCompatActivity
     // automatically handle clicks on the Home/Up button, so long
     // as you specify a parent activity in AndroidManifest.xml.
     int id = item.getItemId();
-
     //noinspection SimplifiableIfStatement
     if (id == R.id.action_cerrar_sesion) {
       return true;
@@ -107,9 +113,10 @@ public class MainActivity extends AppCompatActivity
 
     if (id == R.id.nav_categoria) {
       fragment = new CategoriaFragment();
-    } else if (id == R.id.nav_gallery) {
+    }else if (id == R.id.nav_gallery) {
+      fragment = new GastoFragment();
 
-    } else if (id == R.id.nav_slideshow) {
+    }else if (id == R.id.nav_slideshow) {
 
     } else if (id == R.id.nav_manage) {
 
