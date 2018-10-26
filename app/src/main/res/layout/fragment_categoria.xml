@@ -6,16 +6,10 @@
     tools:context=".fragmentos.CategoriaFragment"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_marginVertical="20dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/holo_orange_dark"
-        android:text="Mis Categorías"
-        android:textSize="20dp"/>
     <ListView
         android:id="@+id/lstCategorias"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:divider="#000000"
+        />
 </LinearLayout>

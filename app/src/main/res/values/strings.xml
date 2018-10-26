@@ -16,9 +16,13 @@
     <string name="genero">Género</string>
     <string name="registro">Registro</string>
     <string name="registrarme">Registrarme</string>
-    <string name="telefono">Telefono</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="telefono">Teléfono</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_cerrar_sesion">Cerrar Sesión</string>
+    <string name="login_fail">Mail o password incorrectos.</string>
+    <string name="network_error">Error de comunicación.</string>
+    <string name="categorias">Categorías</string>
+    <string name="gastos">Gastos</string>
+    <string name="mis_datos">Mis Datos</string>
+    <string name="title_activity_sms_token">SmsTokenActivity</string>
 </resources>

@@ -19,6 +19,7 @@ import java.util.List;
 import duoc.cl.mibolsillo.api.BolsilloApiAdapter;
 import duoc.cl.mibolsillo.entidades.Categoria;
 import duoc.cl.mibolsillo.entidades.Usuario;
+import duoc.cl.mibolsillo.util.Constantes;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
   public void onBackPressed() {
     AlertDialog alertDialog = new AlertDialog.Builder(LoginActivity.this).create();
     alertDialog.setTitle("Atención");
-    alertDialog.setMessage("Desea salir ?");
+    alertDialog.setMessage("¿ Terminar aplicación ?");
     alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Si", (dialog, which) -> finish());
     alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No", (dialog, which) -> dialog.dismiss());
     alertDialog.show();
@@ -54,11 +55,15 @@ public class LoginActivity extends AppCompatActivity {
       progressDialog.show();
       String correo = txtMail.getText().toString();
       String password = txtPass.getText().toString();
-      Call<Usuario> loginCall = BolsilloApiAdapter.getApiService().login(correo, password);
-      loginCall.enqueue(new LoginCallback());
+      loginRequest(correo, password);
     } catch (Exception e) {
       Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
     }
+  }
+
+  public void loginRequest(String correo, String password){
+    Call<Usuario> loginCall = BolsilloApiAdapter.getApiService().login(correo, password);
+    loginCall.enqueue(new LoginCallback());
   }
 
   public void registroUsuario(View view) {
@@ -70,24 +75,27 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onResponse(Call<Usuario> call, Response<Usuario> response) {
       progressDialog.hide();
-      int code = response.code();
       if (response.isSuccessful()) {
         Usuario usuario = response.body();
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        SharedPreferences.Editor editor = getSharedPreferences("datos", MODE_PRIVATE).edit();
-        editor.putInt("idUsuario", usuario.getId());
+        intent.putExtra(Constantes.EXT_NOMBRE, usuario.getNombre());
+        intent.putExtra(Constantes.EXT_MAIL, usuario.getCorreo());
+        SharedPreferences.Editor editor = getSharedPreferences(Constantes.PREF_DATA, MODE_PRIVATE).edit();
+        editor.putInt(Constantes.PREF_ID, usuario.getId());
+        editor.putString(Constantes.PREF_CORREO, usuario.getCorreo());
+        editor.putString(Constantes.PREF_PASSWORD, txtPass.getText().toString());
         editor.commit();
         startActivity(intent);
         finish();
       } else {
-        Toast.makeText(LoginActivity.this, "Credenciales incorrectas.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(LoginActivity.this, R.string.login_fail, Toast.LENGTH_SHORT).show();
       }
     }
 
     @Override
     public void onFailure(Call<Usuario> call, Throwable t) {
       progressDialog.hide();
-      Toast.makeText(LoginActivity.this, "Error de comunicación.", Toast.LENGTH_SHORT).show();
+      Toast.makeText(LoginActivity.this, R.string.network_error, Toast.LENGTH_SHORT).show();
     }
   }
 }

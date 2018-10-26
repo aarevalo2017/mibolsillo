@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +20,10 @@ import java.util.List;
 
 import duoc.cl.mibolsillo.R;
 import duoc.cl.mibolsillo.api.BolsilloApiAdapter;
-import duoc.cl.mibolsillo.entidades.Categoria;
+import duoc.cl.mibolsillo.entidades.Gasto;
 import duoc.cl.mibolsillo.util.Constantes;
+import duoc.cl.mibolsillo.util.GastoFilaAdapter;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -31,17 +31,16 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CategoriaFragment.OnFragmentInteractionListener} interface
+ * {@link GastoFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CategoriaFragment#newInstance} factory method to
+ * Use the {@link GastoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CategoriaFragment extends Fragment {
+public class GastoFragment extends Fragment {
   View view;
-  ListView lstCategorias;
+  ListView lstGastos;
   ArrayList<String> listaInfo = new ArrayList<>();
   ProgressDialog progressDialog;
-
 
   // TODO: Rename parameter arguments, choose names that match
   // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -54,7 +53,7 @@ public class CategoriaFragment extends Fragment {
 
   private OnFragmentInteractionListener mListener;
 
-  public CategoriaFragment() {
+  public GastoFragment() {
     // Required empty public constructor
   }
 
@@ -64,11 +63,11 @@ public class CategoriaFragment extends Fragment {
    *
    * @param param1 Parameter 1.
    * @param param2 Parameter 2.
-   * @return A new instance of fragment CategoriaFragment.
+   * @return A new instance of fragment GastoFragment.
    */
   // TODO: Rename and change types and number of parameters
-  public static CategoriaFragment newInstance(String param1, String param2) {
-    CategoriaFragment fragment = new CategoriaFragment();
+  public static GastoFragment newInstance(String param1, String param2) {
+    GastoFragment fragment = new GastoFragment();
     Bundle args = new Bundle();
     args.putString(ARG_PARAM1, param1);
     args.putString(ARG_PARAM2, param2);
@@ -88,27 +87,27 @@ public class CategoriaFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
-    view = inflater.inflate(R.layout.fragment_categoria, container, false);
+    view = inflater.inflate(R.layout.fragment_gasto, container, false);
     progressDialog = new ProgressDialog(view.getContext());
     progressDialog.setMessage("Cargando Categorías...");
     progressDialog.show();
-    lstCategorias = view.findViewById(R.id.lstCategorias);
-    lstCategorias.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    lstGastos = view.findViewById(R.id.lstGastos);
+    lstGastos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(view.getContext(), "Position : " + position, Toast.LENGTH_SHORT).show();
       }
     });
-    obtenerCategorias();
+    obtenerGastos();
     return view;
   }
 
-  private void obtenerCategorias() {
+  private void obtenerGastos() {
     SharedPreferences prefs = this.getActivity().getSharedPreferences(Constantes.PREF_DATA, MODE_PRIVATE);
     int id = prefs.getInt(Constantes.PREF_ID, 0);
     if (id > 0) {
-      Call<List<Categoria>> categorias = BolsilloApiAdapter.getApiService().getCategorias(id);
-      categorias.enqueue(new CategoriasCallback());
+      Call<List<Gasto>> gastosCall = BolsilloApiAdapter.getApiService().getGastos(id);
+      gastosCall.enqueue(new GastosCallback());
     }
   }
 
@@ -151,32 +150,31 @@ public class CategoriaFragment extends Fragment {
     void onFragmentInteraction(Uri uri);
   }
 
-  class CategoriasCallback implements Callback<List<Categoria>> {
-
+  private class GastosCallback implements retrofit2.Callback<List<Gasto>> {
     @Override
-    public void onResponse(Call<List<Categoria>> call, Response<List<Categoria>> response) {
+    public void onResponse(Call<List<Gasto>> call, Response<List<Gasto>> response) {
       progressDialog.hide();
       if (response.isSuccessful()) {
-        List<Categoria> categorias = response.body();
+        List<Gasto> gastos = response.body();
         listaInfo.clear();
-        if (categorias.isEmpty()) {
-        Snackbar.make(view, "No existen categorías", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
-//          Toast.makeText(view.getContext(), "Sin datos", Toast.LENGTH_LONG).show();
+        if (gastos.isEmpty()) {
+          Snackbar.make(view, "No hay Gastos", Snackbar.LENGTH_LONG)
+                  .setAction("Action", null).show();
           return;
         }
-        for (Categoria c : categorias) {
-          listaInfo.add(c.getNombre());
+        for (Gasto gasto : gastos) {
+          listaInfo.add(gasto.getDescripcion());
         }
-        ArrayAdapter adapter = new ArrayAdapter(view.getContext(), android.R.layout.simple_expandable_list_item_1, listaInfo);
-        lstCategorias.setAdapter(adapter);
+        lstGastos.setAdapter(new GastoFilaAdapter(view.getContext(), gastos));
+//        ArrayAdapter adapter = new ArrayAdapter(view.getContext(), android.R.layout.simple_expandable_list_item_1, listaInfo);
+//        lstGastos.setAdapter(adapter);
       } else {
         Toast.makeText(view.getContext(), "Error al consultar", Toast.LENGTH_SHORT).show();
       }
     }
 
     @Override
-    public void onFailure(Call<List<Categoria>> call, Throwable t) {
+    public void onFailure(Call<List<Gasto>> call, Throwable t) {
       Toast.makeText(view.getContext(), "Error de comunicación.", Toast.LENGTH_SHORT).show();
     }
   }

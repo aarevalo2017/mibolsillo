@@ -3,6 +3,7 @@ package duoc.cl.mibolsillo.api;
 import java.util.List;
 
 import duoc.cl.mibolsillo.entidades.Categoria;
+import duoc.cl.mibolsillo.entidades.Gasto;
 import duoc.cl.mibolsillo.entidades.Usuario;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -18,11 +19,17 @@ public interface BolsilloApiService {
   @POST("login")
   Call<Usuario> login(@Field("correo") String correo, @Field("password") String password);
 
-  @GET("usuario/{id}/categoria")
+  @GET("usuario/{id}/categorias")
   Call<List<Categoria>> getCategorias(@Path("id") int id);
 
+  @GET("usuario/{id}/gastos")
+  Call<List<Gasto>> getGastos(@Path("id") int id);
+
   @POST("categoria")
-  Call<Categoria> addCategoria(@Body Categoria categoria);
+  Call<Categoria> agregarCategoria(@Body Categoria categoria);
+
+  @POST("gasto")
+  Call<Gasto> agregarGasto(@Body Gasto gasto);
 
   @POST("usuario")
   Call<Usuario> agregarUsuario(@Body Usuario usuario);

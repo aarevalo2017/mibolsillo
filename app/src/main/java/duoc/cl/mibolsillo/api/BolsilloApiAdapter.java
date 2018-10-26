@@ -13,6 +13,7 @@ public class BolsilloApiAdapter {
     HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
     logging.setLevel(HttpLoggingInterceptor.Level.BODY);
     OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+    httpClient.addInterceptor(logging);
     String baseUrl = "http://lavegaonline.ml:90/mibolsillo/public/api/";
     if (API_SERVICE == null) {
       Retrofit retrofit = new Retrofit.Builder()

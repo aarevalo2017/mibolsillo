@@ -8,6 +8,7 @@ public class Gasto {
   private Date fecha;
   private int monto;
   private int categoria_id;
+  private int usuario_id;
 
   public int getId() {
     return id;
@@ -49,4 +50,11 @@ public class Gasto {
     this.categoria_id = categoria_id;
   }
 
+  public int getUsuario_id() {
+    return usuario_id;
+  }
+
+  public void setUsuario_id(int usuario_id) {
+    this.usuario_id = usuario_id;
+  }
 }

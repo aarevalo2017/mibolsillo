@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SmsTokenActivity"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="35dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Código Activación"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_marginHorizontal="40dp">
+        <EditText
+            android:inputType="number"
+            android:textAlignment="center"
+            android:id="@+id/txtC1"
+            android:maxLength="1"
+            android:layout_gravity="center_vertical"
+            android:layout_width="50dp"
+            android:textSize="50dp"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:inputType="number"
+            android:textAlignment="center"
+            android:id="@+id/txtC2"
+            android:maxLength="1"
+            android:layout_gravity="center_vertical"
+            android:layout_width="50dp"
+            android:textSize="50dp"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:inputType="number"
+            android:textAlignment="center"
+            android:id="@+id/txtC3"
+            android:maxLength="1"
+            android:layout_gravity="center_vertical"
+            android:layout_width="50dp"
+            android:textSize="50dp"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:inputType="number"
+            android:textAlignment="center"
+            android:id="@+id/txtC4"
+            android:maxLength="1"
+            android:layout_gravity="center_vertical"
+            android:layout_width="50dp"
+            android:textSize="50dp"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:inputType="number"
+            android:textAlignment="center"
+            android:id="@+id/txtC5"
+            android:maxLength="1"
+            android:layout_gravity="center_vertical"
+            android:layout_width="50dp"
+            android:textSize="50dp"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:inputType="number"
+            android:textAlignment="center"
+            android:id="@+id/txtC6"
+            android:maxLength="1"
+            android:layout_gravity="center_vertical"
+            android:layout_width="50dp"
+            android:textSize="50dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <Button
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Enviar"/>
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Volver a enviar código"/>
+</LinearLayout>

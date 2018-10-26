@@ -65,6 +65,8 @@ public class RegistroActivity extends AppCompatActivity {
       if (response.isSuccessful()){
         Usuario usuario = response.body();
         Toast.makeText(RegistroActivity.this, "Usuario agregado.", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(RegistroActivity.this, SmsTokenActivity.class);
+        startActivity(intent);
         finish();
       }else{
         Toast.makeText(RegistroActivity.this, "Error en los datos enviados.", Toast.LENGTH_SHORT).show();
